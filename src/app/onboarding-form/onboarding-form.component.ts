@@ -13,13 +13,16 @@ export class OnboardingFormComponent implements OnInit {
   
   ngOnInit() {
     this.onboardingForm = this.builder.group({
-      name : [''],
-      category : [''],
-      dob : [''],
-      father : [''],
-      mother : [''],
-      score : ['']
+      name : ['Name'],
+      category : ['Category'],
+      dob : ['date'],
+      father : [`Father's Name`],
+      mother : [` Mother's Name`],
+      score : ['%(marks)']
     });
   }
 
+  onSubmit() {
+    console.log(this.onboardingForm.get("dob").value);
+  }
 }

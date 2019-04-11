@@ -1,1 +1,32 @@
 <h1>Onboarding Form</h1>
+<form [formGroup]='onboardingForm' (ngSubmit)='onSubmit()'>
+    <label>
+        Student Name
+        <input type="text" formControlName="name" />
+    </label>
+    <label>
+        Category
+        <select formControlName="category">
+            <option value="international">International</option>
+            <option value="domestic">Domestic</option>
+        </select>
+    </label>
+    <label>
+        DOB
+        <input type="date" formControlName="dob" />
+    </label>
+    <label>
+        Father's Name
+        <input type="text" formControlName="father" />
+    </label>
+    <label>
+        Mother's Name
+        <input type="text" formControlName="mother" />
+    </label>
+    <label>
+        Last class score
+        <input type="text" formControlName="score" />
+    </label>
+
+    <button>Onboard</button>
+</form>

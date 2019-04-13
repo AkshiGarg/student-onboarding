@@ -2,31 +2,41 @@
 <form [formGroup]='onboardingForm' (ngSubmit)='onSubmit()'>
     <label>
         Student Name
-        <input type="text" formControlName="name" />
+        <input type="text" formControlName="name" placeholder="Name"/>
     </label>
     <label>
         Category
         <select formControlName="category">
+            <option value="" hidden>Select Category</option>
             <option value="international">International</option>
             <option value="domestic">Domestic</option>
         </select>
     </label>
+    <div >
+        <!-- <label>Documents</label> -->
+        <div formArrayName="documents" *ngFor="let document of onboardingForm.controls.documents.controls; let i=index"></div>
+        <!-- <input type="checkbox" [formControlName]="i" /> -->
+        <!-- <label>{{documents[i].name}}</label> -->
+        <!-- <label>{{document.value}}</label> -->
+
+    </div>
     <label>
-        DOB
-        <input type="date" formControlName="dob" />
+        Date Of Birth
+        <input type="date" formControlName="dob"/>
     </label>
     <label>
         Father's Name
-        <input type="text" formControlName="father" />
+        <input type="text" formControlName="father" placeholder="Father's Name"/>
     </label>
     <label>
         Mother's Name
-        <input type="text" formControlName="mother" />
+        <input type="text" formControlName="mother" placeholder="Mother's Name"/>
     </label>
     <label>
         Last class score
-        <input type="text" formControlName="score" />
+        <input type="text" formControlName="score" placeholder="Marks(%)"/>
     </label>
 
     <button>Onboard</button>
 </form>
+{{ onboardingForm.controls.documents.value | json}}

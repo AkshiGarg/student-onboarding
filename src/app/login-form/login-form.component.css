@@ -1,0 +1,24 @@
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+}
+
+.container {
+  padding-left: 100px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  border-style: solid;
+}
+
+.container > * {
+  width: 60%;
+}
+
+.form-border {
+  margin-top: 30px;
+  width: 50%;
+  border: 0.5px;
+  padding-left: 25%;
+}

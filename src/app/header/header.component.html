@@ -1,9 +1,10 @@
 <div>
-  <span> On Boarding App</span>
-  <div class = "right">
-  <img src="assets/images/user.jpg"> 
-  <span> Admin</span>
-  </div>
-  <app-menu></app-menu>
+  <mat-toolbar color="primary">
+    <span> On Boarding App</span>
+    <div class="right" *ngIf=name>
+      <img src="assets/images/user.jpg">
+      <span> {{name}}</span>
+    </div>
+  </mat-toolbar>
+  <app-menu *ngIf=name></app-menu>
 </div>
-

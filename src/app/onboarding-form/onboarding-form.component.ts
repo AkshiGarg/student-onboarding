@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { DocumentService } from '../service/document/document.service';
 import { Document} from "../model/document"
+import { StudentService } from '../service/student/student.service';
 
 @Component({
   selector: 'app-onboarding-form',
@@ -13,7 +14,8 @@ export class OnboardingFormComponent implements OnInit {
   documentsByCatogoryType: Document[];
   onboardingForm: FormGroup;
   constructor(private _builder: FormBuilder,
-    private _documentService: DocumentService) { }
+    private _documentService: DocumentService,
+    private _studentService: StudentService) { }
 
   ngOnInit() {
     this.onboardingForm = this._builder.group({
@@ -48,7 +50,8 @@ export class OnboardingFormComponent implements OnInit {
   // }
 
   onSubmit() {
-    console.log(this.onboardingForm.value);
+    this._studentService.onBoardStudent(this.onboardingForm.value).subscribe();
+    // console.log(this.onboardingForm.value);
   }
 
   onSelecting() {

@@ -6,7 +6,7 @@
     </label>
     <label>
         Category
-        <select formControlName="category">
+        <select formControlName="category" (change)="onSelecting($event.target.value)">
             <option value="" hidden>Select Category</option>
             <option value="international">International</option>
             <option value="domestic">Domestic</option>
@@ -14,10 +14,11 @@
     </label>
     <div >
         <!-- <label>Documents</label> -->
-        <div formArrayName="documents" *ngFor="let document of onboardingForm.controls.documents.controls; let i=index"></div>
-        <!-- <input type="checkbox" [formControlName]="i" /> -->
+        <div formArrayName="documents" *ngFor="let document of onboardingForm.get('documents').value; let i=index"></div>
+        {{document}}
+        <!-- <span formControlName="name"></span> -->
         <!-- <label>{{documents[i].name}}</label> -->
-        <!-- <label>{{document.value}}</label> -->
+        <!-- <label>{{name}}</label> -->
 
     </div>
     <label>
@@ -39,4 +40,4 @@
 
     <button>Onboard</button>
 </form>
-{{ onboardingForm.controls.documents.value | json}}
+{{ onboardingForm.get('documents').value | json}}

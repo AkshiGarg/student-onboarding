@@ -26,7 +26,7 @@ export class DocumentService {
   constructor() { }
 
   getDocumentsByCategory(category: string): Document[] {
-    if(category.toLowerCase() === 'inernational') {
+    if(category.toLowerCase() === 'international') {
       return this._internationalDocuments;
     } else if ( category.toLowerCase() === 'domestic') {
       return this._domesticDocuments

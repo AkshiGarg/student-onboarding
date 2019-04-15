@@ -3,16 +3,11 @@
   <option value="international">International</option>
   <option value="domestic">Domestic</option>
 </select>
-<input type="text"/>
+<input type="text" />
 <button>Search</button>
 
-<div>
-  <ul *ngFor = "let student of students">
-    <!-- <li>{{student.name}}</li>
-    <button>Edit</button>
-    <button>View</button>
-    <button (click)="delete(student.id)">Delete</button> -->
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile *ngFor="let student of students">
     <app-student-card [student]="student" (deleteEvent)="delete($event)"></app-student-card>
-  </ul>
-</div>
-
+  </mat-grid-tile>
+</mat-grid-list>

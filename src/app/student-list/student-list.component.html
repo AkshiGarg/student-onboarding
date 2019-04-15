@@ -8,10 +8,11 @@
 
 <div>
   <ul *ngFor = "let student of students">
-    <li>{{student.name}}</li>
+    <!-- <li>{{student.name}}</li>
     <button>Edit</button>
     <button>View</button>
-    <button (click)="delete(student.id)">Delete</button>
+    <button (click)="delete(student.id)">Delete</button> -->
+    <app-student-card [student]="student" (deleteEvent)="id = $event"></app-student-card>
   </ul>
 </div>
-<app-student-card [categoryType]="categoryType"></app-student-card>
+

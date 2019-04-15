@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatDatepickerModule, MatIconModule, MatInputModule, MatOptionModule, MatSelectModule, MatToolbarModule, MatCheckboxModule } from '@angular/material';
+import { MatButtonModule, MatDatepickerModule, MatIconModule, MatInputModule, MatOptionModule, MatSelectModule, MatToolbarModule, MatCheckboxModule, MatCardModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -43,6 +43,7 @@ import { StudentViewComponent } from './student-view/student-view.component';
     MatSelectModule,
     MatDatepickerModule,
     MatCheckboxModule,
+    MatCardModule,
     BrowserAnimationsModule,
     MatIconModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService)

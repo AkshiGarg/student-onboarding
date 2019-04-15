@@ -1,4 +1,11 @@
-  {{student.name}}
-  <button>Edit</button>
-  <button>View</button>
-  <button>Delete</button>
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>{{student.name}}</mat-card-title>
+    <mat-card-subtitle>Date Of Birth: {{student.dob}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-actions class="card-actions">
+    <button mat-raised-button>Edit</button>
+    <button mat-raised-button>View</button>
+    <button mat-raised-button (click)="delete(student.id)">Delete</button>
+  </mat-card-actions>
+</mat-card>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Student } from 'src/app/model/student';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,10 @@ export class StudentService {
   }
 
   getStudentsByCategory(category: string): Observable<Student[]> {
-    return this._httpClient.get<Student[]>(this._url + `?category=${category}`).pipe(tap(data => console.log(data)));
+    if (category === 'all') {
+      return this.students$;
+    }
+    return this._httpClient.get<Student[]>(this._url + `?category=${category}`);
   }
 
   delete(id: number): Observable<Student> {

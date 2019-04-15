@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Student } from '../model/student';
 import { StudentService } from '../service/student/student.service';
 
@@ -25,7 +25,7 @@ export class StudentListComponent implements OnInit {
   }
 
   onChange(categoryType: string) {
-    this.categoryType = categoryType
+    this.categoryType = categoryType;
     this.studentService.getStudentsByCategory(categoryType).subscribe(
       students => this.students = students
     );;
@@ -33,6 +33,5 @@ export class StudentListComponent implements OnInit {
 
   delete(id: number) {
     this.students = this.students.filter(student => student.id !== id);
-    this.studentService.delete(id).subscribe();
   }
 }

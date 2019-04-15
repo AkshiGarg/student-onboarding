@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatDatepickerModule, MatIconModule, MatInputModule, MatOptionModule, MatSelectModule, MatToolbarModule, MatCheckboxModule, MatCardModule } from '@angular/material';
+import { MatButtonModule, MatDatepickerModule, MatIconModule, MatInputModule, MatOptionModule, MatSelectModule, MatToolbarModule, MatCheckboxModule, MatCardModule, MatTabsModule, MatDialogModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -17,6 +17,7 @@ import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-fo
 import { StudentCardComponent } from './student-card/student-card.component';
 import { StudentListComponent } from './student-list/student-list.component';
 import { StudentViewComponent } from './student-view/student-view.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { StudentViewComponent } from './student-view/student-view.component';
     PageNotFoundComponent,
     MenuComponent,
     StudentCardComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -43,10 +45,15 @@ import { StudentViewComponent } from './student-view/student-view.component';
     MatSelectModule,
     MatDatepickerModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatCardModule,
+    MatTabsModule,
     BrowserAnimationsModule,
     MatIconModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService)
+  ],
+  entryComponents: [
+    ConfirmationDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

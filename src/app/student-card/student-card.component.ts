@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Student } from '../model/student';
 import { StudentService } from '../service/student/student.service';
+import { MatDialog } from '@angular/material';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-student-card',
@@ -9,15 +11,23 @@ import { StudentService } from '../service/student/student.service';
 })
 export class StudentCardComponent implements OnInit {
   @Output() deleteEvent = new EventEmitter();
-
-  @Input() public student: Student; 
-  constructor(private studentService : StudentService) { }
+  @Input() public student: Student;
+  constructor(private studentService: StudentService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
   }
 
-  delete(id: number) {
-    this.studentService.delete(id).subscribe();
-    this.deleteEvent.emit(id);
+  delete(id: number): void {
+    const dialogRef= this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: "Are you sure you want to delete?"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.studentService.delete(id).subscribe();
+        this.deleteEvent.emit(id);
+      }
+    });
   }
 }

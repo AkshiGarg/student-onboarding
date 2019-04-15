@@ -6,21 +6,21 @@ import { Document } from 'src/app/model/document';
 })
 export class DocumentService {
   private _internationalDocuments: Document[] = [
-    { name: 'Domicile Certificate', mandatory: true },
-    { name: 'Birth Certificate', mandatory: true },
-    { name: 'Previous Marksheets', mandatory: true },
-    { name: 'Police Clearance', mandatory: true },
-    { name: 'Passport', mandatory: true },
-    { name: 'Signed Declaration', mandatory: true }
+    { name: 'Domicile Certificate', mandatory: true, checked: false },
+    { name: 'Birth Certificate', mandatory: true, checked: false },
+    { name: 'Previous Marksheets', mandatory: true, checked: false },
+    { name: 'Police Clearance', mandatory: true, checked: false },
+    { name: 'Passport', mandatory: true, checked: false },
+    { name: 'Signed Declaration', mandatory: true, checked: false }
   ];
 
   private _domesticDocuments:  Document[] = [
-    { name: 'Domicile Certificate', mandatory: true },
-    { name: 'Birth Certificate', mandatory: true },
-    { name: 'Previous Marksheets', mandatory: true },
-    { name: 'Police Clearance', mandatory: false },
-    { name: 'Passport', mandatory: false },
-    { name: 'Signed Declaration', mandatory: true }
+    { name: 'Domicile Certificate', mandatory: true, checked: false },
+    { name: 'Birth Certificate', mandatory: true, checked: false },
+    { name: 'Previous Marksheets', mandatory: true, checked: false },
+    { name: 'Police Clearance', mandatory: false, checked: false },
+    { name: 'Passport', mandatory: false, checked: false },
+    { name: 'Signed Declaration', mandatory: true, checked: false }
   ];
   private _url: string = "https:/localhost:8080/student/";
   constructor() { }

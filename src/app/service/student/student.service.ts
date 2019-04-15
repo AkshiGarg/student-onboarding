@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Student } from 'src/app/model/student';
 import { Observable, of } from 'rxjs';
-import { tap } from 'rxjs/operators'
+import { tap, catchError } from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
 })
@@ -29,10 +29,22 @@ export class StudentService {
     mother: string,
     score: number,
   }) {
-    console.log(student);
+    // console.log(student);
     return this._httpClient.post(this._url, student);
   }
 
+  getStudentById(studentId: number): Observable<Student> {
+    return this._httpClient.get<Student>(this._url + `${studentId}`)
+      .pipe(catchError(this.handleError<Student>('getStudentById')));
+  }
+
+  handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      console.log(`${operation} failed`);
+      return of(result as T);
+    };
+  }
   getStudents(): Observable<Student[]> {
     return this.students$;
   }

@@ -34,7 +34,7 @@
     <div>
         <!-- <label>Documents</label> -->
         <div formArrayName="documents" *ngFor="let document of onboardingForm.controls.documents.controls; let i=index">
-            <mat-checkbox [formControlName]='i'>{{documentsByCatogoryType[i].name}}</mat-checkbox>
+            <mat-checkbox [formControlName]='i' [checked]="documentsByCatogoryType[i].checked">{{documentsByCatogoryType[i].name}}</mat-checkbox>
             <span class="required" *ngIf='documentsByCatogoryType[i].mandatory'>*</span>
         </div>
         <!-- {{document}} -->

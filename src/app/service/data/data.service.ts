@@ -14,7 +14,14 @@ export class InMemoryDataService implements InMemoryDbService {
         name: "Amish Goel",
         category: "domestic",
         dob: new Date(),
-        documents: this._documentService.getDocumentsByCategory("domestic"),
+        documents: [
+          { name: 'Domicile Certificate', mandatory: true, checked: true },
+          { name: 'Birth Certificate', mandatory: true, checked: true },
+          { name: 'Previous Marksheets', mandatory: true, checked: true },
+          { name: 'Police Clearance', mandatory: true, checked: true },
+          { name: 'Passport', mandatory: true, checked: true },
+          { name: 'Signed Declaration', mandatory: true, checked: true }
+        ],
         father: "Sandeep Goel",
         mother: "Manju Goel",
         score: 90
@@ -22,9 +29,16 @@ export class InMemoryDataService implements InMemoryDbService {
       {
         id: 2,
         name: "John Smith",
-        category: "International",
+        category: "international",
         dob: new Date(),
-        documents: this._documentService.getDocumentsByCategory("International"),
+        documents: [
+          { name: 'Domicile Certificate', mandatory: true, checked: true },
+          { name: 'Birth Certificate', mandatory: true, checked: true },
+          { name: 'Previous Marksheets', mandatory: true, checked: true },
+          { name: 'Police Clearance', mandatory: true, checked: true },
+          { name: 'Passport', mandatory: true, checked: true },
+          { name: 'Signed Declaration', mandatory: true, checked: true }
+        ],
         father: "Steve Smith",
         mother: "Maria Smith",
         score: 52
@@ -34,7 +48,13 @@ export class InMemoryDataService implements InMemoryDbService {
         name: "Priyank Sachdeva",
         category: "domestic",
         dob: new Date(),
-        documents: this._documentService.getDocumentsByCategory("domestic"),
+        documents: [
+          { name: 'Domicile Certificate', mandatory: true, checked: true },
+          { name: 'Birth Certificate', mandatory: true, checked: true },
+          { name: 'Previous Marksheets', mandatory: true, checked: true },
+          { name: 'Police Clearance', mandatory: false, checked: false },
+          { name: 'Passport', mandatory: false, checked: true },
+          { name: 'Signed Declaration', mandatory: true, checked: true }],
         father: "Manoj Sachdeva",
         mother: "Aarti Sachdeva",
         score: 90

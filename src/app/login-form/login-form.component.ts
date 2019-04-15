@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -9,9 +9,11 @@ import { Router } from '@angular/router';
 })
 export class LoginFormComponent implements OnInit {
 
+  @Output() loginEvent = new EventEmitter();
+  // @Input() username: string;
   loginForm: FormGroup;
-  hide= true;
-  valid= true;
+  hide = true;
+  valid = true;
   constructor(private _fb: FormBuilder,
     private route: Router) { }
 
@@ -25,7 +27,9 @@ export class LoginFormComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.get('username').value === 'AdminUser'
       && this.loginForm.get('password').value === 'qwerty') {
-      this.route.navigate(['/onboarding']);
+      const username = this.loginForm.get('username').value;
+      this.loginEvent.emit(username);
+      // this.route.navigate(['/onboarding']);
     } else {
       this.valid = false;
     }

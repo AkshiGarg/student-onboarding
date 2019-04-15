@@ -6,10 +6,10 @@ import { OnboardingFormComponent } from './onboarding-form/onboarding-form.compo
 import { LoginFormComponent } from './login-form/login-form.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginFormComponent },
+  // { path: 'login', component: LoginFormComponent },
   { path: 'onboarding', component: OnboardingFormComponent },
   { path: 'student', component: StudentListComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  // { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
 

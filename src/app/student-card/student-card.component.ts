@@ -13,20 +13,29 @@ import { StudentService } from '../service/student/student.service';
 export class StudentCardComponent implements OnInit {
   @Output() deleteEvent = new EventEmitter();
   @Input() public student: Student;
+
+  private _categoryClass: boolean;
+  public cardClasses = {};
   constructor(private studentService: StudentService,
     private _route: Router,
     public dialog: MatDialog) { }
 
   ngOnInit() {
+    this._categoryClass = this.student.category == 'domestic';
+    this.cardClasses = {
+      "example-card": true,
+      "domestic": this._categoryClass,
+      "international": !this._categoryClass
+    }
   }
 
   delete(id: number): void {
-    const dialogRef= this.dialog.open(ConfirmationDialogComponent, {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '350px',
       data: "Are you sure you want to delete?"
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.studentService.delete(id).subscribe();
         this.deleteEvent.emit(id);
       }
@@ -34,6 +43,6 @@ export class StudentCardComponent implements OnInit {
   }
 
   view(id: number): void {
-    
+
   }
 }

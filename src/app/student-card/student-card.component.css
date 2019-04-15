@@ -1,4 +1,14 @@
-.example-card {
-    max-width: 400px;
-  }
+.international {
+  background-color: azure;
+  font-style: italic;
+  color: darkcyan;
+}
+
+.domestic {
+  background-color: darkseagreen;
+  color: darkslategrey;
+}
  
+.example-card {
+  max-width: 400px;
+}

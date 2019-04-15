@@ -6,7 +6,7 @@
 <input type="text" />
 <button>Search</button>
 
-<mat-grid-list cols="2" rowHeight="2:1">
+<mat-grid-list cols="4" rowHeight="2:1" class="mat-grid">
   <mat-grid-tile *ngFor="let student of students">
     <app-student-card [student]="student" (deleteEvent)="delete($event)"></app-student-card>
   </mat-grid-tile>

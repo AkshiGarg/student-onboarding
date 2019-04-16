@@ -1,10 +1,13 @@
-<mat-tab-group>
-    <mat-tab label="Onbording Form"> Onbording Form </mat-tab>
-    <mat-tab label="List Students"> List Students </mat-tab>
-  </mat-tab-group>
-<nav>
+<nav mat-tab-nav-bar>
+  <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+    [active]="rla.isActive">
+    {{link.label}}
+  </a>
+</nav>
+
+<!-- <nav>
   <a routerLink="/onboarding">Onbording Form</a>
 </nav>
 <nav>
   <a routerLink="/student">List Students</a>
-</nav>
+</nav> -->

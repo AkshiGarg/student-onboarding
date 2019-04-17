@@ -13,7 +13,7 @@ export class InMemoryDataService implements InMemoryDbService {
         id: 1,
         name: "Amish Goel",
         category: "domestic",
-        dob: new Date(),
+        dob: '21/10/1991',
         documents: [
           { name: 'Domicile Certificate', mandatory: true, checked: true },
           { name: 'Birth Certificate', mandatory: true, checked: true },
@@ -30,7 +30,7 @@ export class InMemoryDataService implements InMemoryDbService {
         id: 2,
         name: "John Smith",
         category: "international",
-        dob: new Date(),
+        dob: '02/02/1989',
         documents: [
           { name: 'Domicile Certificate', mandatory: true, checked: true },
           { name: 'Birth Certificate', mandatory: true, checked: true },
@@ -47,7 +47,7 @@ export class InMemoryDataService implements InMemoryDbService {
         id: 3,
         name: "Priyank Sachdeva",
         category: "domestic",
-        dob: new Date(),
+        dob: '23/03/1990',
         documents: [
           { name: 'Domicile Certificate', mandatory: true, checked: true },
           { name: 'Birth Certificate', mandatory: true, checked: true },
@@ -63,7 +63,7 @@ export class InMemoryDataService implements InMemoryDbService {
     return { students };
   }
 
-  constructor(private _documentService: DocumentService) { }
+  constructor() { }
 
 
 }

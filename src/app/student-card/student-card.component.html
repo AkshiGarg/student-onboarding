@@ -1,7 +1,7 @@
 <mat-card [ngClass]="cardClasses">
   <mat-card-header>
     <mat-card-title>{{student.name | titlecase}}</mat-card-title>
-    <mat-card-subtitle>{{student.category | titlecase}}</mat-card-subtitle>
+    <mat-card-subtitle>{{student.dob | titlecase}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-actions class="card-actions">
     <button mat-raised-button color="primary" routerLink='/onboarding' [queryParams]='{edit : student.id}'>Edit</button>

@@ -20,7 +20,7 @@ export class StudentService {
   }
 
   onBoardStudent(student: {
-    id: number;
+    id?: number;
     name: string,
     category: string,
     documents: Document[],
@@ -29,7 +29,8 @@ export class StudentService {
     mother: string,
     score: number,
   }) {
-    // console.log(student);
+    student.id = Math.floor(1 + Math.random()*(1000 + 1 - 1))
+    console.log(student);
     return this._httpClient.post(this._url, student);
   }
 

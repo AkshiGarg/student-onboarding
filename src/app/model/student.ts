@@ -5,7 +5,7 @@ export interface Student {
     name: string;
     category: string;
     documents: Document[]
-    dob: Date;
+    dob: string;
     father: string;
     mother: string;
     score: number;

@@ -6,7 +6,7 @@
     </label> -->
     <mat-form-field [hideRequiredMarker]="onboardingForm.value.hideRequired"
         [floatLabel]="onboardingForm.value.floatLabel">
-        <input matInput placeholder="Student Name" required formControlName="name">
+        <input matInput placeholder="Student Name" formControlName="name">
     </mat-form-field>
 
     <!-- <label>
@@ -21,7 +21,7 @@
 
     <mat-form-field [hideRequiredMarker]="onboardingForm.value.hideRequired"
         [floatLabel]="onboardingForm.value.floatLabel">
-        <mat-select required formControlName="category" (ngModelChange)="onSelecting()">
+        <mat-select formControlName="category" (ngModelChange)="onSelectingCategory()">
             <mat-option value="international">International</mat-option>
             <mat-option value="domestic">Domestic</mat-option>
         </mat-select>
@@ -33,8 +33,9 @@
 
     <div>
         <!-- <label>Documents</label> -->
-        <div formArrayName="documents" *ngFor="let document of onboardingForm.controls.documents.controls; let i=index">
-            <mat-checkbox [formControlName]='i' [checked]="documentsByCatogoryType[i].checked">{{documentsByCatogoryType[i].name}}</mat-checkbox>
+        <div formArrayName="documents" *ngFor="let document of documents.controls; let i=index">
+            <mat-checkbox [formControlName]='i' [checked]="documentsByCatogoryType[i].checked">
+                {{documentsByCatogoryType[i].name}}</mat-checkbox>
             <span class="required" *ngIf='documentsByCatogoryType[i].mandatory'>*</span>
         </div>
         <!-- {{document}} -->
@@ -43,16 +44,17 @@
         <!-- <label>{{name}}</label> -->
 
     </div>
-    <label>
+    <!-- <label>
         Date Of Birth
-        <input type="date" formControlName="dob" />
-    </label>
+        <input type="date" formControlName="dob" [value]="onboardingForm.get('dob').value" />
+    </label> -->
 
-    <!-- <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Date of Birth" formControlName="dob">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field> -->
+    <mat-form-field [hideRequiredMarker]="onboardingForm.value.hideRequired" [floatLabel]="onboardingForm.value.floatLabel">
+        <mat-label>Date of Birth</mat-label>
+        <input [value]="onboardingForm.get('dob').value" matInput [matDatepicker]="myPicker" formControlName="dob">
+        <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
+        <mat-datepicker #myPicker></mat-datepicker>
+    </mat-form-field>
 
     <!-- <label>
         Father's Name
@@ -61,7 +63,7 @@
 
     <mat-form-field [hideRequiredMarker]="onboardingForm.value.hideRequired"
         [floatLabel]="onboardingForm.value.floatLabel">
-        <input matInput placeholder="Father's Name" required formControlName="father">
+        <input matInput placeholder="Father's Name" formControlName="father">
     </mat-form-field>
     <!-- 
     <label>
@@ -71,7 +73,7 @@
 
     <mat-form-field [hideRequiredMarker]="onboardingForm.value.hideRequired"
         [floatLabel]="onboardingForm.value.floatLabel">
-        <input matInput placeholder="Mother's Name" required formControlName="mother">
+        <input matInput placeholder="Mother's Name" formControlName="mother">
     </mat-form-field>
     <!-- <label>
         Last class score
@@ -79,7 +81,7 @@
     </label> -->
     <mat-form-field [hideRequiredMarker]="onboardingForm.value.hideRequired"
         [floatLabel]="onboardingForm.value.floatLabel">
-        <input matInput placeholder="Last class score(in %)" required formControlName="score">
+        <input matInput placeholder="Last class score(in %)" formControlName="score">
     </mat-form-field>
 
     <div class="button-row">

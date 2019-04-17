@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Document } from "../model/document";
 import { Student } from '../model/student';
@@ -13,31 +14,25 @@ import { StudentService } from '../service/student/student.service';
 })
 export class OnboardingFormComponent implements OnInit {
 
+  @ViewChild(FormGroupDirective) form;
   documentsByCatogoryType: Document[];
   onboardingForm: FormGroup;
   constructor(private _builder: FormBuilder,
     private _documentService: DocumentService,
     private _studentService: StudentService,
     private _route: ActivatedRoute,
-    private _nav: Router) { }
+    private _nav: Router,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.initializeOnboardingForm();
     this._checkRequestType();
-    
 
-    // this.addDocuments();
-    // this.onboardingForm.get("category").valueChanges.subscribe(value => console.log(value));
-    // this.onboardingForm.get("category").valueChanges.subscribe(value => {
-    //   this.onboardingForm.setControl('documents', this._builder.group({
-    //     this._documentService.getDocumentsByCategory(value)
-    //   }));
-    // });
   }
   private _checkRequestType() {
     let queryParams;
     this._route.queryParams.subscribe(params => queryParams = params);
-    if(queryParams['edit'] ) {
+    if (queryParams['edit']) {
       const studentId = parseInt(queryParams['edit']);
       if (studentId) {
         this._getAndAddStudentDataToForm(studentId);
@@ -63,13 +58,13 @@ export class OnboardingFormComponent implements OnInit {
 
   private initializeOnboardingForm() {
     this.onboardingForm = this._builder.group({
-      name: [''],
-      category: [''],
+      name: ['', Validators.required],
+      category: ['', Validators.required],
       documents: this._builder.array([]),
-      dob: [],
-      father: [],
-      mother: [],
-      score: []
+      dob: ['', Validators.required],
+      father: ['', Validators.required],
+      mother: ['', Validators.required],
+      score: ['', Validators.required]
     });
   }
 
@@ -81,7 +76,7 @@ export class OnboardingFormComponent implements OnInit {
     this.onboardingForm.patchValue({
       name: student.name,
       category: student.category,
-      dob: student.dob,
+      dob: new Date(student.dob),
       father: student.father,
       mother: student.mother,
       score: student.score
@@ -104,11 +99,19 @@ export class OnboardingFormComponent implements OnInit {
   // }
 
   onSubmit() {
-    // this._studentService.onBoardStudent(this.onboardingForm.value).subscribe();
-    console.log(this.onboardingForm);
+    let dob: Date = this.onboardingForm.get('dob').value;
+    let dobString: string = dob.toLocaleDateString();
+    this.onboardingForm.get('dob').setValue(dobString);
+    const name: string = this.onboardingForm.get('name').value;
+    this._studentService.onBoardStudent(this.onboardingForm.value).subscribe(data => {
+      this.snackBar.open(name + ' onboarded', '', {
+        duration: 2000,
+      });
+      this.form.resetForm();
+    });
   }
 
-  onSelecting() {
+  onSelectingCategory() {
     const categoryType = this.onboardingForm.get("category").value;
     // to clear the documents array before patching
     this.onboardingForm.get("documents").reset();
@@ -118,12 +121,14 @@ export class OnboardingFormComponent implements OnInit {
     // const documentControls = this.documentsByCatogoryType.map(control => new FormControl(false));
     const documents = this.onboardingForm.get("documents") as FormArray;
     for (let i = 0; i < this.documentsByCatogoryType.length; i++) {
-      documents.push(new FormControl(this.documentsByCatogoryType[i].checked));
+      documents.push(
+        new FormControl(this.documentsByCatogoryType[i].checked,
+          this.documentsByCatogoryType[i].mandatory? Validators.required : null));
     }
     // this.onboardingForm.patchValue({
     //   documents : documents
     // });
     this.onboardingForm.setControl('documents', documents);
-    // console.log(this.onboardingForm.controls.documents)
+    console.log(this.onboardingForm)
   }
 }

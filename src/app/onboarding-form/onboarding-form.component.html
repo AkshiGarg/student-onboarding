@@ -21,7 +21,7 @@
 
     <div>
         <div formArrayName="documents" *ngFor="let document of documents.controls; let i=index">
-            <mat-checkbox [formControlName]='i' [checked]="documentsByCatogoryType[i].checked" [disabled]="disabled">
+            <mat-checkbox [formControlName]='i' [checked]="documentsByCatogoryType[i].checked">
                 {{documentsByCatogoryType[i].name}}</mat-checkbox>
             <span class="required" *ngIf='documentsByCatogoryType[i].mandatory && !disabled'>*</span>
         </div>
@@ -61,6 +61,8 @@
     </mat-form-field>
 
     <div class="button-row">
-        <button mat-raised-button type="submit" [disabled]='disabled ||!onboardingForm.valid'>Onboard</button>
+        <button mat-raised-button type="submit" [disabled]='disabled ||onboardingForm.invalid'>Onboard</button>
     </div>
 </form>
+
+

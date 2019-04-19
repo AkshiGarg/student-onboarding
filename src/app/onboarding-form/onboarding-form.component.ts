@@ -79,9 +79,13 @@ export class OnboardingFormComponent implements OnInit {
   }
 
   private _addStudentDataToForm(student: Student): void {
-    let submittedDoc: boolean[] = [];
+    let submittedDoc: any[] = [];
     for (let i = 0; i < student.documents.length; i++) {
-      submittedDoc.push(student.documents[i].checked);
+      if(this.requestType === 'edit') {
+        submittedDoc.push([student.documents[i].checked, Validators.requiredTrue]);
+      } else {
+        submittedDoc.push({value: student.documents[i].checked, disabled: true});
+      }
     }
 
     const dateParts = student.dob.split('/');
@@ -150,11 +154,8 @@ export class OnboardingFormComponent implements OnInit {
     for (let i = 0; i < this.documentsByCatogoryType.length; i++) {
       documents.push(
         new FormControl(this.documentsByCatogoryType[i].checked,
-          this.documentsByCatogoryType[i].mandatory ? Validators.required : null));
+          this.documentsByCatogoryType[i].mandatory ? Validators.requiredTrue : null));
     }
-    // this.onboardingForm.patchValue({
-    //   documents : documents
-    // });
     this.onboardingForm.setControl('documents', documents);
     console.log(this.onboardingForm)
   }

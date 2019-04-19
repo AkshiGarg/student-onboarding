@@ -29,6 +29,7 @@ export class StudentService {
     mother: string,
     score: number,
   }) {
+    
     student.id = Math.floor(1 + Math.random() * (1000 + 1 - 1))
     return this._httpClient.post(this._url, student);
   }

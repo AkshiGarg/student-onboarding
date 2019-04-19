@@ -4,7 +4,7 @@ export interface Student {
     id?: number;
     name: string;
     category: string;
-    documents: Document[]
+    documents: boolean[]
     dob: string;
     father: string;
     mother: string;

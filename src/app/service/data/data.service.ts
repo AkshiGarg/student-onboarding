@@ -13,14 +13,7 @@ export class InMemoryDataService implements InMemoryDbService {
         name: "Amish Goel",
         category: "domestic",
         dob: '21/10/1991',
-        documents: [
-          { name: 'Domicile Certificate', mandatory: true, checked: true },
-          { name: 'Birth Certificate', mandatory: true, checked: true },
-          { name: 'Previous Marksheets', mandatory: true, checked: true },
-          { name: 'Police Clearance', mandatory: true, checked: true },
-          { name: 'Passport', mandatory: true, checked: true },
-          { name: 'Signed Declaration', mandatory: true, checked: true }
-        ],
+        documents: [ true, true, true, true, true , true],
         father: "Sandeep Goel",
         mother: "Manju Goel",
         score: 90
@@ -30,14 +23,7 @@ export class InMemoryDataService implements InMemoryDbService {
         name: "John Smith",
         category: "international",
         dob: '02/02/1989',
-        documents: [
-          { name: 'Domicile Certificate', mandatory: true, checked: true },
-          { name: 'Birth Certificate', mandatory: true, checked: true },
-          { name: 'Previous Marksheets', mandatory: true, checked: true },
-          { name: 'Police Clearance', mandatory: true, checked: true },
-          { name: 'Passport', mandatory: true, checked: true },
-          { name: 'Signed Declaration', mandatory: true, checked: true }
-        ],
+        documents: [ true, true, true, true, true , true],
         father: "Steve Smith",
         mother: "Maria Smith",
         score: 52
@@ -47,13 +33,7 @@ export class InMemoryDataService implements InMemoryDbService {
         name: "Priyank Sachdeva",
         category: "domestic",
         dob: '03/12/1990',
-        documents: [
-          { name: 'Domicile Certificate', mandatory: true, checked: true },
-          { name: 'Birth Certificate', mandatory: true, checked: true },
-          { name: 'Previous Marksheets', mandatory: true, checked: true },
-          { name: 'Police Clearance', mandatory: false, checked: false },
-          { name: 'Passport', mandatory: false, checked: true },
-          { name: 'Signed Declaration', mandatory: true, checked: true }],
+        documents: [ true, true, true, false, true , true],
         father: "Manoj Sachdeva",
         mother: "Aarti Sachdeva",
         score: 90

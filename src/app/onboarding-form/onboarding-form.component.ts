@@ -80,11 +80,15 @@ export class OnboardingFormComponent implements OnInit {
 
   private _addStudentDataToForm(student: Student): void {
     let submittedDoc: any[] = [];
+    this.documentsByCatogoryType = this._documentService.getDocumentsByCategory(student.category);
     for (let i = 0; i < student.documents.length; i++) {
-      if(this.requestType === 'edit') {
-        submittedDoc.push([student.documents[i].checked, Validators.requiredTrue]);
+      if (this.requestType === 'edit') {
+        submittedDoc.push([
+          student.documents[i], this.documentsByCatogoryType[i].mandatory ?
+            Validators.requiredTrue :
+            null]);
       } else {
-        submittedDoc.push({value: student.documents[i].checked, disabled: true});
+        submittedDoc.push({ value: student.documents[i], disabled: true });
       }
     }
 
@@ -108,19 +112,9 @@ export class OnboardingFormComponent implements OnInit {
   get documents() {
     return this.onboardingForm.get('documents') as FormArray;
   }
-  // addDocuments() {
-  //   let documents = [{
-  //     id: 1, name: 'Domicile Certificate', mandatory: true
-  //   }];
-  //   documents.map((o, i) => {
-  //     const control = new FormControl(i === 0);
-  //     (this.onboardingForm.controls.documents as FormArray).push(control);
-  //   })
-  // }
 
   onSubmit() {
     const studentId = this.onboardingForm.get('id').value;
-    console.log(studentId);
     let dob: Date = this.onboardingForm.get('dob').value;
     let dobString: string = dob.toLocaleDateString();
     this.onboardingForm.get('dob').setValue(dobString);
@@ -134,7 +128,7 @@ export class OnboardingFormComponent implements OnInit {
       });
     } else {
       this._studentService.update(studentId, this.onboardingForm.value).subscribe(data => {
-        this.snackBar.open(name +  `'s details updated`, '', {
+        this.snackBar.open(name + `'s details updated`, '', {
           duration: 2000,
         });
         this.form.resetForm();
@@ -153,7 +147,7 @@ export class OnboardingFormComponent implements OnInit {
     const documents = this.onboardingForm.get("documents") as FormArray;
     for (let i = 0; i < this.documentsByCatogoryType.length; i++) {
       documents.push(
-        new FormControl(this.documentsByCatogoryType[i].checked,
+        new FormControl(false,
           this.documentsByCatogoryType[i].mandatory ? Validators.requiredTrue : null));
     }
     this.onboardingForm.setControl('documents', documents);

@@ -2,16 +2,16 @@
   <mat-label>Filter by category</mat-label>
   <select matNativeControl (change)="onChange($event.target.value)">
     <option value="all" default>All</option>
-    <option value="international" default>International</option>
-    <option value="domestic" default>Domestic</option>
+    <option value="international">International</option>
+    <option value="domestic">Domestic</option>
   </select>
 </mat-form-field>
-
-<input matInput type="search" />
-<button>Search</button>
+<mat-form-field>
+<input matInput type="search" placeholder="Search By Name"  [(ngModel)]="searchTerm"/>
+</mat-form-field>
 
 <mat-grid-list cols="4" rowHeight="2:1" class="mat-grid">
-  <mat-grid-tile *ngFor="let student of students">
+  <mat-grid-tile *ngFor="let student of filteredStudents">
     <app-student-card [student]="student" (deleteEvent)="delete($event)"></app-student-card>
   </mat-grid-tile>
 </mat-grid-list>

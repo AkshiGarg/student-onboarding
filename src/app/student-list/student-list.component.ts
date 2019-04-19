@@ -11,6 +11,8 @@ export class StudentListComponent implements OnInit {
   categoryType: string = 'all';
   student: Student;
   students: Student[];
+  filteredStudents: Student[];
+  private _searchTerm: string;
   constructor(public studentService: StudentService) {
   }
 
@@ -18,17 +20,34 @@ export class StudentListComponent implements OnInit {
   //   console.log(changes);
   // }
 
+
+  get searchTerm(): string {
+    return this._searchTerm;
+  }
+
+  set searchTerm(searchString: string) {
+    this._searchTerm = searchString;
+    this.searchByName();
+  }
+  searchByName() {
+    this.filteredStudents = this.students.filter(
+      student => student.name.toLowerCase().indexOf(this._searchTerm) !== -1);
+  }
   ngOnInit() {
     this.studentService.getStudents().subscribe(
-      students => this.students = students
+      students => {
+        this.students = students
+        this.filteredStudents = this.students;
+      }
     );
   }
 
   onChange(categoryType: string) {
-    this.categoryType = categoryType;
     this.studentService.getStudentsByCategory(categoryType).subscribe(
-      students => this.students = students
-    );;
+      students => {
+        this.students = students
+        this.filteredStudents = this.students;
+      });
   }
 
   delete(id: number) {

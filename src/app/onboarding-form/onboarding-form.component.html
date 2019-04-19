@@ -1,23 +1,12 @@
 <h1>Onboarding Form</h1>
 <form [formGroup]='onboardingForm' (ngSubmit)='onSubmit()' class="container">
-    <!-- <label>
-        Student Name
-        <input type="text" formControlName="name" placeholder="Name"/>
-    </label> -->
     <mat-form-field [hideRequiredMarker]="onboardingForm.value.hideRequired"
         [floatLabel]="onboardingForm.value.floatLabel">
         <input matInput placeholder="Student Name" formControlName="name">
+        <mat-error *ngIf="f.name.errors && f.name.errors.minlength">
+            Name should be more than 4 characters
+        </mat-error>
     </mat-form-field>
-
-    <!-- <label>
-        Category
-        <select formControlName="category" (change)="onSelecting($event.target.value)">
-            <option value="" hidden>Select Category</option>
-            <option value="international">International</option>
-            <option value="domestic">Domestic</option>
-        </select>
-    </label> -->
-
 
     <mat-form-field [hideRequiredMarker]="onboardingForm.value.hideRequired"
         [floatLabel]="onboardingForm.value.floatLabel">
@@ -30,61 +19,48 @@
         </mat-label>
     </mat-form-field>
 
-
     <div>
-        <!-- <label>Documents</label> -->
         <div formArrayName="documents" *ngFor="let document of documents.controls; let i=index">
-            <mat-checkbox [formControlName]='i' [checked]="documentsByCatogoryType[i].checked">
+            <mat-checkbox [formControlName]='i' [checked]="documentsByCatogoryType[i].checked" [disabled]="disabled">
                 {{documentsByCatogoryType[i].name}}</mat-checkbox>
-            <span class="required" *ngIf='documentsByCatogoryType[i].mandatory'>*</span>
+            <span class="required" *ngIf='documentsByCatogoryType[i].mandatory && !disabled'>*</span>
         </div>
-        <!-- {{document}} -->
-        <!-- <span formControlName="name"></span> -->
-        <!-- <label>{{documents[i].name}}</label> -->
-        <!-- <label>{{name}}</label> -->
-
     </div>
-    <!-- <label>
-        Date Of Birth
-        <input type="date" formControlName="dob" [value]="onboardingForm.get('dob').value" />
-    </label> -->
 
-    <mat-form-field [hideRequiredMarker]="onboardingForm.value.hideRequired" [floatLabel]="onboardingForm.value.floatLabel">
+    <mat-form-field [hideRequiredMarker]="onboardingForm.value.hideRequired"
+        [floatLabel]="onboardingForm.value.floatLabel">
         <mat-label>Date of Birth</mat-label>
-        <input [value]="onboardingForm.get('dob').value" matInput [matDatepicker]="myPicker" formControlName="dob">
+        <input matInput [matDatepicker]="myPicker" [min]="minValidDate" [max]="maxValidDate" formControlName="dob">
         <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
         <mat-datepicker #myPicker></mat-datepicker>
+        <mat-error *ngIf="f.dob.errors && f.dob.errors.dateRange"> Invalid Date </mat-error>
     </mat-form-field>
-
-    <!-- <label>
-        Father's Name
-        <input type="text" formControlName="father" placeholder="Father's Name" />
-    </label> -->
 
     <mat-form-field [hideRequiredMarker]="onboardingForm.value.hideRequired"
         [floatLabel]="onboardingForm.value.floatLabel">
         <input matInput placeholder="Father's Name" formControlName="father">
+        <mat-error *ngIf="f.father.errors && f.father.errors.minlength">
+            Name should be more than 4 characters
+        </mat-error>
     </mat-form-field>
-    <!-- 
-    <label>
-        Mother's Name
-        <input type="text" formControlName="mother" placeholder="Mother's Name" />
-    </label> -->
 
     <mat-form-field [hideRequiredMarker]="onboardingForm.value.hideRequired"
         [floatLabel]="onboardingForm.value.floatLabel">
         <input matInput placeholder="Mother's Name" formControlName="mother">
+        <mat-error *ngIf="f.mother.errors && f.mother.errors.minlength">
+            Name should be more than 4 characters
+        </mat-error>
     </mat-form-field>
-    <!-- <label>
-        Last class score
-        <input type="text" formControlName="score" placeholder="Marks(%)" />
-    </label> -->
+
     <mat-form-field [hideRequiredMarker]="onboardingForm.value.hideRequired"
         [floatLabel]="onboardingForm.value.floatLabel">
         <input matInput placeholder="Last class score(in %)" formControlName="score">
+        <mat-error *ngIf="f.score.errors && f.score.errors.pattern">
+            Please enter a valid percentage score.
+        </mat-error>
     </mat-form-field>
 
     <div class="button-row">
-        <button mat-raised-button type="submit" [disabled]='!onboardingForm.valid'>Onboard</button>
+        <button mat-raised-button type="submit" [disabled]='disabled ||!onboardingForm.valid'>Onboard</button>
     </div>
 </form>

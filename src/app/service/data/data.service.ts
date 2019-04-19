@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Student } from 'src/app/model/student';
-import { DocumentService } from '../document/document.service';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +46,7 @@ export class InMemoryDataService implements InMemoryDbService {
         id: 3,
         name: "Priyank Sachdeva",
         category: "domestic",
-        dob: '23/03/1990',
+        dob: '03/12/1990',
         documents: [
           { name: 'Domicile Certificate', mandatory: true, checked: true },
           { name: 'Birth Certificate', mandatory: true, checked: true },

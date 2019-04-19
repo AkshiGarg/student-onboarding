@@ -29,8 +29,7 @@ export class StudentService {
     mother: string,
     score: number,
   }) {
-    student.id = Math.floor(1 + Math.random()*(1000 + 1 - 1))
-    console.log(student);
+    student.id = Math.floor(1 + Math.random() * (1000 + 1 - 1))
     return this._httpClient.post(this._url, student);
   }
 
@@ -55,6 +54,11 @@ export class StudentService {
       return this.students$;
     }
     return this._httpClient.get<Student[]>(this._url + `?category=${category}`);
+  }
+
+  update(studentId: number, student): Observable<Student> {
+    student.id = studentId;
+    return this._httpClient.put<Student>(this._url + `${studentId}`, student);
   }
 
   delete(id: number): Observable<Student> {

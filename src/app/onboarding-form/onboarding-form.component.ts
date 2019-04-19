@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators, AbstractControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Document } from "../model/document";
 import { Student } from '../model/student';
 import { DocumentService } from '../service/document/document.service';
 import { StudentService } from '../service/student/student.service';
+import { DateValidator } from '../shared/validator/DateValidator';
 
 @Component({
   selector: 'app-onboarding-form',
@@ -17,6 +18,12 @@ export class OnboardingFormComponent implements OnInit {
   @ViewChild(FormGroupDirective) form;
   documentsByCatogoryType: Document[];
   onboardingForm: FormGroup;
+  disabled = false;
+  requestType;
+
+  minValidDate = new Date(new Date().getFullYear() - 30, 0, 1);
+  maxValidDate = new Date(new Date().getFullYear() - 16, 11, 31);
+
   constructor(private _builder: FormBuilder,
     private _documentService: DocumentService,
     private _studentService: StudentService,
@@ -35,6 +42,7 @@ export class OnboardingFormComponent implements OnInit {
     if (queryParams['edit']) {
       const studentId = parseInt(queryParams['edit']);
       if (studentId) {
+        this.requestType = 'edit';
         this._getAndAddStudentDataToForm(studentId);
       }
     } else if (queryParams['view']) {
@@ -42,6 +50,7 @@ export class OnboardingFormComponent implements OnInit {
       if (studentId) {
         this._getAndAddStudentDataToForm(studentId);
         this.onboardingForm.disable();
+        this.disabled = true;
       }
     }
   }
@@ -58,13 +67,14 @@ export class OnboardingFormComponent implements OnInit {
 
   private initializeOnboardingForm() {
     this.onboardingForm = this._builder.group({
-      name: ['', Validators.required],
+      id: [{ value: null, disabled: true }],
+      name: ['', [Validators.required, Validators.minLength(4)]],
       category: ['', Validators.required],
       documents: this._builder.array([]),
-      dob: ['', Validators.required],
-      father: ['', Validators.required],
-      mother: ['', Validators.required],
-      score: ['', Validators.required]
+      dob: ['', [Validators.required, DateValidator.validDate(this.minValidDate, this.maxValidDate)]],
+      father: ['', [Validators.required, Validators.minLength(4)]],
+      mother: ['', [Validators.required, Validators.minLength(4)]],
+      score: ['', [Validators.required, Validators.pattern('^100$|^[0-9]{1,2}$')]]
     });
   }
 
@@ -73,18 +83,24 @@ export class OnboardingFormComponent implements OnInit {
     for (let i = 0; i < student.documents.length; i++) {
       submittedDoc.push(student.documents[i].checked);
     }
+
+    const dateParts = student.dob.split('/');
+    const studentDob = new Date(parseInt(dateParts[2]), parseInt(dateParts[1]) - 1, parseInt(dateParts[0]));
     this.onboardingForm.patchValue({
+      id: student.id,
       name: student.name,
       category: student.category,
-      dob: new Date(student.dob),
+      dob: studentDob,
       father: student.father,
       mother: student.mother,
       score: student.score
     });
     this.onboardingForm.setControl('documents', this._builder.array(submittedDoc));
-    // this.onboardingForm.disable();
   }
 
+  get f() {
+    return this.onboardingForm.controls;
+  }
   get documents() {
     return this.onboardingForm.get('documents') as FormArray;
   }
@@ -99,16 +115,27 @@ export class OnboardingFormComponent implements OnInit {
   // }
 
   onSubmit() {
+    const studentId = this.onboardingForm.get('id').value;
+    console.log(studentId);
     let dob: Date = this.onboardingForm.get('dob').value;
     let dobString: string = dob.toLocaleDateString();
     this.onboardingForm.get('dob').setValue(dobString);
     const name: string = this.onboardingForm.get('name').value;
-    this._studentService.onBoardStudent(this.onboardingForm.value).subscribe(data => {
-      this.snackBar.open(name + ' onboarded', '', {
-        duration: 2000,
+    if (!studentId) {
+      this._studentService.onBoardStudent(this.onboardingForm.value).subscribe(data => {
+        this.snackBar.open(name + ' onboarded', '', {
+          duration: 2000,
+        });
+        this.form.resetForm();
       });
-      this.form.resetForm();
-    });
+    } else {
+      this._studentService.update(studentId, this.onboardingForm.value).subscribe(data => {
+        this.snackBar.open(name +  `'s details updated`, '', {
+          duration: 2000,
+        });
+        this.form.resetForm();
+      });
+    }
   }
 
   onSelectingCategory() {
@@ -123,7 +150,7 @@ export class OnboardingFormComponent implements OnInit {
     for (let i = 0; i < this.documentsByCatogoryType.length; i++) {
       documents.push(
         new FormControl(this.documentsByCatogoryType[i].checked,
-          this.documentsByCatogoryType[i].mandatory? Validators.required : null));
+          this.documentsByCatogoryType[i].mandatory ? Validators.required : null));
     }
     // this.onboardingForm.patchValue({
     //   documents : documents
@@ -131,4 +158,5 @@ export class OnboardingFormComponent implements OnInit {
     this.onboardingForm.setControl('documents', documents);
     console.log(this.onboardingForm)
   }
+
 }

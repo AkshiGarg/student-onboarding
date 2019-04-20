@@ -11,8 +11,8 @@ export class MenuComponent implements OnInit {
 
   constructor() {
     this.navLinks = [
-      { label: 'Onboarding Form', path: '/onboarding', index: 0 },
-      { label: 'List Students', path: '/student', index: 1 }]
+      { label: 'Onboarding Form', path: '/student', index: 0 },
+      { label: 'List Students', path: '/student/list', index: 1 }]
   }
 
   ngOnInit() {

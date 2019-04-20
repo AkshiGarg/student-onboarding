@@ -12,6 +12,6 @@
 
 <mat-grid-list cols="4" rowHeight="2:1" class="mat-grid">
   <mat-grid-tile *ngFor="let student of filteredStudents">
-    <app-student-card [student]="student" (deleteEvent)="delete($event)"></app-student-card>
+    <app-view-student [student]="student" (deleteEvent)="delete($event)"></app-view-student>
   </mat-grid-tile>
 </mat-grid-list>

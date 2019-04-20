@@ -9,7 +9,7 @@ import { StudentService } from '../service/student/student.service';
 import { DateValidator } from '../shared/validator/DateValidator';
 
 @Component({
-  selector: 'app-onboarding-form',
+  selector: 'app-onboard-student',
   templateUrl: './onboard-student.component.html',
   styleUrls: ['./onboard-student.component.css']
 })

@@ -3,7 +3,7 @@ import { Student } from '../model/student';
 import { StudentService } from '../service/student/student.service';
 
 @Component({
-  selector: 'app-student-list',
+  selector: 'app-list-student',
   templateUrl: './list-student.component.html',
   styleUrls: ['./list-student.component.css']
 })

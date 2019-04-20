@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { Student } from '../model/student';
 import { StudentService } from '../service/student/student.service';
 
 @Component({
-  selector: 'app-student-card',
+  selector: 'app-view-student',
   templateUrl: './view-student.component.html',
   styleUrls: ['./view-student.component.css']
 })

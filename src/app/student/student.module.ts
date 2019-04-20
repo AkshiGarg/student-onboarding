@@ -1,15 +1,16 @@
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatGridListModule, MatIconModule, MatInputModule, MatNativeDateModule, MatOptionModule, MatSelectModule, MatSnackBarModule, MatTabsModule, MatToolbarModule } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { StudentRoutingModule } from './student-routing.module';
+import { SharedModule } from '../shared/shared.module';
+
+import { InMemoryDataService } from '../service/data/data.service';
 
 import { StudentDetailComponent } from './view-student.component';
 import { ListStudentComponent } from './list-student.component';
 import { OnboardStudentComponent } from './onboard-student.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,26 +19,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     StudentDetailComponent
   ],
   imports: [
-    CommonModule,
     HttpClientModule,
     StudentRoutingModule,
-    ReactiveFormsModule,
     FormsModule,
-    MatInputModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatSnackBarModule,
-    MatCheckboxModule,
-    MatGridListModule,
-    MatDialogModule,
-    MatCardModule,
-    MatTabsModule,
-    BrowserAnimationsModule,
-    MatIconModule
+    SharedModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService)
   ]
 })
 export class StudentModule { }

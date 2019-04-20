@@ -1,6 +1,6 @@
 <app-header [username] = "username"></app-header>
 <app-menu *ngIf="!username ; else elseblock"></app-menu>
 <ng-template #elseblock>
-    <app-login-form (loginEvent) = "username = $event"></app-login-form>
+    <app-login (loginEvent) = "username = $event"></app-login>
 </ng-template>
 <router-outlet></router-outlet>

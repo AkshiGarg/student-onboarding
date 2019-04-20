@@ -72,7 +72,6 @@ export class OnboardStudentComponent implements OnInit {
     this.onboardingForm = this._builder.group({
       id: [{ value: null, disabled: true }],
       name: ['', [Validators.required, Validators.minLength(4)]],
-      gender: ['', Validators.required],
       category: ['', Validators.required],
       documents: this._builder.array([]),
       dob: ['', [Validators.required, DateValidator.validDate(this.minValidDate, this.maxValidDate)]],

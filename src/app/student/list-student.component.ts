@@ -52,5 +52,6 @@ export class ListStudentComponent implements OnInit {
 
   delete(id: number) {
     this.students = this.students.filter(student => student.id !== id);
+    this.filteredStudents = this.students;
   }
 }

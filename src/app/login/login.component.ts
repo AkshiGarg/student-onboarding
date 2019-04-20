@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,13 +9,10 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   @Output() loginEvent = new EventEmitter();
-  // @Input() username: string;
   loginForm: FormGroup;
   hide = true;
   valid = true;
-  constructor(private _fb: FormBuilder,
-    private route: Router) { 
-      console.log("login component");
+  constructor(private _fb: FormBuilder) { 
     
     }
 
@@ -32,7 +28,6 @@ export class LoginComponent implements OnInit {
       && this.loginForm.get('password').value === 'qwerty') {
       const username = this.loginForm.get('username').value;
       this.loginEvent.emit(username);
-      // this.route.navigate(['/onboarding']);
     } else {
       this.valid = false;
     }

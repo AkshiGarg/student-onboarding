@@ -1,5 +1,5 @@
-<app-header [username]="username"></app-header>
 <div class='app-main'>
+<app-header [username]="username"></app-header>
     <app-menu *ngIf="!username ; else elseblock"></app-menu>
     <ng-template #elseblock>
         <app-login (loginEvent)="username = $event"></app-login>

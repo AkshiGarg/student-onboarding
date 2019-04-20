@@ -125,13 +125,17 @@ export class OnboardStudentComponent implements OnInit {
     if (!studentId) {
       this._studentService.onBoardStudent(this.onboardingForm.value).subscribe(data => {
         this.snackBar.open(name + ' onboarded', '', {
-          duration: 2000,
+          duration: 2000, 
+          verticalPosition: "top",
+          horizontalPosition: "center",
         });
       });
     } else {
       this._studentService.update(studentId, this.onboardingForm.value).subscribe(data => {
         this.snackBar.open(name + `'s details updated`, '', {
           duration: 2000,
+          verticalPosition: "top",
+          horizontalPosition: "center",
         });
       });
     }

@@ -9,9 +9,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginModule } from './login/login.module';
 
 import { AppComponent } from './app.component';
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
-import { HeaderComponent } from './header/header.component';
-import { MenuComponent } from './menu/menu.component';
+import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
+import { HeaderComponent } from './shared/header/header.component';
+import { MenuComponent } from './shared/menu/menu.component';
 import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
 import { StudentRoutingModule } from './student/student-routing.module';
 import { StudentModule } from './student/student.module';

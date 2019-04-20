@@ -7,17 +7,16 @@ import { StudentService } from '../service/student/student.service';
 
 @Component({
   selector: 'app-student-card',
-  templateUrl: './student-card.component.html',
-  styleUrls: ['./student-card.component.css']
+  templateUrl: './view-student.component.html',
+  styleUrls: ['./view-student.component.css']
 })
-export class StudentCardComponent implements OnInit {
+export class StudentDetailComponent implements OnInit {
   @Output() deleteEvent = new EventEmitter();
   @Input() public student: Student;
 
   private _categoryClass: boolean;
   public cardClasses = {};
   constructor(private studentService: StudentService,
-    private _route: Router,
     public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -40,9 +39,5 @@ export class StudentCardComponent implements OnInit {
         this.deleteEvent.emit(id);
       }
     });
-  }
-
-  view(id: number): void {
-
   }
 }

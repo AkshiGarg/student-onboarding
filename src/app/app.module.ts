@@ -8,6 +8,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { AppRoutingModule } from './app-routing.module';
 import { LoginModule } from './login/login.module';
+import { StudentModule } from './student/student.module';
 
 import { InMemoryDataService } from './service/data/data.service';
 
@@ -15,27 +16,21 @@ import { AppComponent } from './app.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
-import { OnboardingFormComponent } from './onboarding-form/onboarding-form.component';
 import { PageNotFoundComponent } from './shared/pages/page-not-found/page-not-found.component';
-import { StudentCardComponent } from './student-card/student-card.component';
-import { StudentListComponent } from './student-list/student-list.component';
-import { StudentViewComponent } from './student-view/student-view.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    StudentViewComponent,
-    OnboardingFormComponent,
-    StudentListComponent,
     HeaderComponent,
     PageNotFoundComponent,
     MenuComponent,
-    StudentCardComponent,
     ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
     LoginModule,
+    StudentModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
@@ -55,8 +50,7 @@ import { StudentViewComponent } from './student-view/student-view.component';
     MatTabsModule,
     BrowserAnimationsModule,
     MatIconModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService),
-    LoginModule
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
   entryComponents: [
     ConfirmationDialogComponent

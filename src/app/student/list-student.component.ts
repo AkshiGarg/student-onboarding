@@ -4,10 +4,10 @@ import { StudentService } from '../service/student/student.service';
 
 @Component({
   selector: 'app-student-list',
-  templateUrl: './student-list.component.html',
-  styleUrls: ['./student-list.component.css']
+  templateUrl: './list-student.component.html',
+  styleUrls: ['./list-student.component.css']
 })
-export class StudentListComponent implements OnInit {
+export class ListStudentComponent implements OnInit {
   categoryType: string = 'all';
   student: Student;
   students: Student[];

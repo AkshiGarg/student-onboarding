@@ -10,10 +10,10 @@ import { DateValidator } from '../shared/validator/DateValidator';
 
 @Component({
   selector: 'app-onboarding-form',
-  templateUrl: './onboarding-form.component.html',
-  styleUrls: ['./onboarding-form.component.css']
+  templateUrl: './onboard-student.component.html',
+  styleUrls: ['./onboard-student.component.css']
 })
-export class OnboardingFormComponent implements OnInit {
+export class OnboardStudentComponent implements OnInit {
 
   @ViewChild(FormGroupDirective) form;
   documentsByCatogoryType: Document[];

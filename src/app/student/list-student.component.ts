@@ -31,7 +31,7 @@ export class ListStudentComponent implements OnInit {
   }
   searchByName() {
     this.filteredStudents = this.students.filter(
-      student => student.name.toLowerCase().indexOf(this._searchTerm) !== -1);
+      student => student.name.toLowerCase().indexOf(this._searchTerm.toLowerCase()) !== -1);
   }
   ngOnInit() {
     this.studentService.getStudents().subscribe(

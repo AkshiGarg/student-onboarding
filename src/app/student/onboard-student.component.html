@@ -1,5 +1,5 @@
 <div class='app-onboard-student'>
-    <h1>Onboarding Form</h1>
+    <h1>{{formTitle}}</h1>
     <form [formGroup]='onboardingForm' (ngSubmit)='onSubmit()' class="container">
         <mat-form-field [hideRequiredMarker]="onboardingForm.value.hideRequired"
             [floatLabel]="onboardingForm.value.floatLabel">

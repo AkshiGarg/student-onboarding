@@ -20,6 +20,7 @@ export class OnboardStudentComponent implements OnInit {
   onboardingForm: FormGroup;
   disabled = false;
   requestType;
+  formTitle:string = "Onboarding Form";
 
   minValidDate = new Date(new Date().getFullYear() - 30, 0, 1);
   maxValidDate = new Date(new Date().getFullYear() - 16, 11, 31);
@@ -40,12 +41,14 @@ export class OnboardStudentComponent implements OnInit {
     let queryParams;
     this._route.queryParams.subscribe(params => queryParams = params);
     if (queryParams['edit']) {
+      this.formTitle = "Edit Student Details";
       const studentId = parseInt(queryParams['edit']);
       if (studentId) {
         this.requestType = 'edit';
         this._getAndAddStudentDataToForm(studentId);
       }
     } else if (queryParams['view']) {
+      this.formTitle = "Student Details";
       const studentId = parseInt(queryParams['view']);
       if (studentId) {
         this._getAndAddStudentDataToForm(studentId);
@@ -69,6 +72,7 @@ export class OnboardStudentComponent implements OnInit {
     this.onboardingForm = this._builder.group({
       id: [{ value: null, disabled: true }],
       name: ['', [Validators.required, Validators.minLength(4)]],
+      gender: ['', Validators.required],
       category: ['', Validators.required],
       documents: this._builder.array([]),
       dob: ['', [Validators.required, DateValidator.validDate(this.minValidDate, this.maxValidDate)]],
@@ -124,16 +128,15 @@ export class OnboardStudentComponent implements OnInit {
         this.snackBar.open(name + ' onboarded', '', {
           duration: 2000,
         });
-        this.form.resetForm();
       });
     } else {
       this._studentService.update(studentId, this.onboardingForm.value).subscribe(data => {
         this.snackBar.open(name + `'s details updated`, '', {
           duration: 2000,
         });
-        this.form.resetForm();
       });
     }
+    this._nav.navigate(['/student/list']);
   }
 
   onSelectingCategory() {
@@ -143,7 +146,6 @@ export class OnboardStudentComponent implements OnInit {
     (this.onboardingForm.get("documents") as FormArray)['controls'].splice(0);
 
     this.documentsByCatogoryType = this._documentService.getDocumentsByCategory(categoryType);
-    // const documentControls = this.documentsByCatogoryType.map(control => new FormControl(false));
     const documents = this.onboardingForm.get("documents") as FormArray;
     for (let i = 0; i < this.documentsByCatogoryType.length; i++) {
       documents.push(
@@ -151,7 +153,6 @@ export class OnboardStudentComponent implements OnInit {
           this.documentsByCatogoryType[i].mandatory ? Validators.requiredTrue : null));
     }
     this.onboardingForm.setControl('documents', documents);
-    console.log(this.onboardingForm)
   }
 
 }

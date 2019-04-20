@@ -15,7 +15,10 @@ export class LoginComponent implements OnInit {
   hide = true;
   valid = true;
   constructor(private _fb: FormBuilder,
-    private route: Router) { }
+    private route: Router) { 
+      console.log("login component");
+    
+    }
 
   ngOnInit() {
     this.loginForm = this._fb.group({

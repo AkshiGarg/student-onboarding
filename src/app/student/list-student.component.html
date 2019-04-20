@@ -1,4 +1,4 @@
-<mat-form-field>
+<mat-form-field class="category-filter">
   <mat-label>Filter by category</mat-label>
   <select matNativeControl (change)="onChange($event.target.value)">
     <option value="all" default>All</option>
@@ -6,12 +6,14 @@
     <option value="domestic">Domestic</option>
   </select>
 </mat-form-field>
-<mat-form-field>
-<input matInput type="search" placeholder="Search By Name"  [(ngModel)]="searchTerm"/>
+<mat-form-field class="search-filter">
+  <input matInput type="search" placeholder="Search By Name" [(ngModel)]="searchTerm" />
 </mat-form-field>
 
 <mat-grid-list cols="4" rowHeight="2:1" class="mat-grid">
-  <mat-grid-tile *ngFor="let student of filteredStudents">
-    <app-view-student [student]="student" (deleteEvent)="delete($event)"></app-view-student>
-  </mat-grid-tile>
+  <div class="list-grid">
+    <mat-grid-tile *ngFor="let student of filteredStudents">
+      <app-view-student [student]="student" (deleteEvent)="delete($event)"></app-view-student>
+    </mat-grid-tile>
+  </div>
 </mat-grid-list>

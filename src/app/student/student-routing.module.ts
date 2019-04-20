@@ -6,7 +6,7 @@ import { OnboardStudentComponent } from './onboard-student.component';
 const routes: Routes = [
   { path: 'student', children: [
     { path: '', component: OnboardStudentComponent },
-    { path: 'list', component: ListStudentComponent },
+    { path: 'list', component: ListStudentComponent }
   ]}
 ];
 

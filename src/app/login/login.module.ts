@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { LoginRoutingModule } from './login-routing.module';
+// import { LoginRoutingModule } from './login-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 import { LoginComponent } from './login.component';
@@ -10,7 +10,7 @@ import { LoginComponent } from './login.component';
     LoginComponent
   ],
   imports: [
-    LoginRoutingModule,
+    // LoginRoutingModule,
     SharedModule
   ],
   exports: [

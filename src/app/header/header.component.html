@@ -1,10 +1,9 @@
 <div>
   <mat-toolbar color="primary">
     <span> On Boarding App</span>
-    <div class="right" *ngIf=name>
-      <img src="assets/images/user.jpg">
-      <span> {{username}}</span>
+    <div class="right" *ngIf=username>
+      <i class="material-icons">face</i>
+      <span> AdminUser</span>
     </div>
   </mat-toolbar>
-  <app-menu *ngIf=name></app-menu>
 </div>

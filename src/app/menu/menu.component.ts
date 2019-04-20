@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -10,6 +10,7 @@ export class MenuComponent implements OnInit {
   activeLinkIndex = -1;
 
   constructor() {
+    console.log("Äpp menu")
     this.navLinks = [
       { label: 'Onboarding Form', path: '/student', index: 0 },
       { label: 'List Students', path: '/student/list', index: 1 }]

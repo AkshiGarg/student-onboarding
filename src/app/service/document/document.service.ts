@@ -5,7 +5,7 @@ import { Document } from 'src/app/model/document';
   providedIn: 'root'
 })
 export class DocumentService {
-  private _internationalDocuments: Document[] = [
+  private internationalDocuments: Document[] = [
     { name: 'Domicile Certificate', mandatory: true },
     { name: 'Birth Certificate', mandatory: true },
     { name: 'Previous Marksheets', mandatory: true },
@@ -14,7 +14,7 @@ export class DocumentService {
     { name: 'Signed Declaration', mandatory: true }
   ];
 
-  private _domesticDocuments: Document[] = [
+  private domesticDocuments: Document[] = [
     { name: 'Domicile Certificate', mandatory: true },
     { name: 'Birth Certificate', mandatory: true },
     { name: 'Previous Marksheets', mandatory: true },
@@ -26,9 +26,9 @@ export class DocumentService {
 
   getDocumentsByCategory(category: string): Document[] {
     if (category.toLowerCase() === 'international') {
-      return this._internationalDocuments;
+      return this.internationalDocuments;
     } else if (category.toLowerCase() === 'domestic') {
-      return this._domesticDocuments
+      return this.domesticDocuments
     } else {
       return [];
     }

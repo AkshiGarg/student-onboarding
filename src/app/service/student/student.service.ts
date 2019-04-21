@@ -9,14 +9,14 @@ import { tap, catchError } from 'rxjs/operators'
 export class StudentService {
 
   private students$: Observable<Student[]>;
-  private _url: string = "https:/localhost:8080/students/";
+  private url: string = "https:/localhost:8080/students/";
 
-  constructor(private _httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient) {
     this.students$ = this.loadData();
 
   }
   loadData(): Observable<Student[]> {
-    return this._httpClient.get<Student[]>(this._url);
+    return this.httpClient.get<Student[]>(this.url);
   }
 
   onBoardStudent(student: {
@@ -31,11 +31,11 @@ export class StudentService {
   }) {
     
     student.id = Math.floor(1 + Math.random() * (1000 + 1 - 1))
-    return this._httpClient.post(this._url, student);
+    return this.httpClient.post(this.url, student);
   }
 
   getStudentById(studentId: number): Observable<Student> {
-    return this._httpClient.get<Student>(this._url + `${studentId}`)
+    return this.httpClient.get<Student>(this.url + `${studentId}`)
       .pipe(catchError(this.handleError<Student>('getStudentById')));
   }
 
@@ -54,15 +54,15 @@ export class StudentService {
     if (category === 'all') {
       return this.students$;
     }
-    return this._httpClient.get<Student[]>(this._url + `?category=${category}`);
+    return this.httpClient.get<Student[]>(this.url + `?category=${category}`);
   }
 
   update(studentId: number, student): Observable<Student> {
     student.id = studentId;
-    return this._httpClient.put<Student>(this._url + `${studentId}`, student);
+    return this.httpClient.put<Student>(this.url + `${studentId}`, student);
   }
 
   delete(id: number): Observable<Student> {
-    return this._httpClient.delete<Student>(this._url + `${id}`);
+    return this.httpClient.delete<Student>(this.url + `${id}`);
   }
 }

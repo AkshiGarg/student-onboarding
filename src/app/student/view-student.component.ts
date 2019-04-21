@@ -13,17 +13,17 @@ export class StudentDetailComponent implements OnInit {
   @Output() deleteEvent = new EventEmitter();
   @Input() public student: Student;
 
-  private _categoryClass: boolean;
+  private categoryClass: boolean;
   public cardClasses = {};
   constructor(private studentService: StudentService,
     public dialog: MatDialog) { }
 
   ngOnInit() {
-    this._categoryClass = this.student.category == 'domestic';
+    this.categoryClass = this.student.category == 'domestic';
     this.cardClasses = {
       "example-card": true,
-      "domestic": this._categoryClass,
-      "international": !this._categoryClass
+      "domestic": this.categoryClass,
+      "international": !this.categoryClass
     }
   }
 

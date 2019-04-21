@@ -21,59 +21,61 @@ export class OnboardStudentComponent implements OnInit {
   disabled = false;
   requestType;
   formTitle:string = "Onboarding Form";
+  buttonName: string = "Onboard";
 
   minValidDate = new Date(new Date().getFullYear() - 30, 0, 1);
   maxValidDate = new Date(new Date().getFullYear() - 16, 11, 31);
 
-  constructor(private _builder: FormBuilder,
-    private _documentService: DocumentService,
-    private _studentService: StudentService,
-    private _route: ActivatedRoute,
-    private _nav: Router,
+  constructor(private builder: FormBuilder,
+    private documentService: DocumentService,
+    private studentService: StudentService,
+    private route: ActivatedRoute,
+    private nav: Router,
     private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.initializeOnboardingForm();
-    this._checkRequestType();
+    this.checkRequestType();
 
   }
-  private _checkRequestType() {
+  private checkRequestType() {
     let queryParams;
-    this._route.queryParams.subscribe(params => queryParams = params);
+    this.route.queryParams.subscribe(params => queryParams = params);
     if (queryParams['edit']) {
       this.formTitle = "Edit Student Details";
+      this.buttonName = "Save";
       const studentId = parseInt(queryParams['edit']);
       if (studentId) {
         this.requestType = 'edit';
-        this._getAndAddStudentDataToForm(studentId);
+        this.getAndAddStudentDataToForm(studentId);
       }
     } else if (queryParams['view']) {
       this.formTitle = "Student Details";
       const studentId = parseInt(queryParams['view']);
       if (studentId) {
-        this._getAndAddStudentDataToForm(studentId);
+        this.getAndAddStudentDataToForm(studentId);
         this.onboardingForm.disable();
         this.disabled = true;
       }
     }
   }
 
-  private _getAndAddStudentDataToForm(studentId: number) {
-    this._studentService.getStudentById(studentId).subscribe(student => {
+  private getAndAddStudentDataToForm(studentId: number) {
+    this.studentService.getStudentById(studentId).subscribe(student => {
       if (student) {
-        this._addStudentDataToForm(student)
+        this.addStudentDataToForm(student)
       } else {
-        this._nav.navigate(['/not-found']);
+        this.nav.navigate(['/not-found']);
       }
     });
   }
 
   private initializeOnboardingForm() {
-    this.onboardingForm = this._builder.group({
+    this.onboardingForm = this.builder.group({
       id: [{ value: null, disabled: true }],
       name: ['', [Validators.required, Validators.minLength(4)]],
       category: ['', Validators.required],
-      documents: this._builder.array([]),
+      documents: this.builder.array([]),
       dob: ['', [Validators.required, DateValidator.validDate(this.minValidDate, this.maxValidDate)]],
       father: ['', [Validators.required, Validators.minLength(4)]],
       mother: ['', [Validators.required, Validators.minLength(4)]],
@@ -81,9 +83,9 @@ export class OnboardStudentComponent implements OnInit {
     });
   }
 
-  private _addStudentDataToForm(student: Student): void {
+  private addStudentDataToForm(student: Student): void {
     let submittedDoc: any[] = [];
-    this.documentsByCatogoryType = this._documentService.getDocumentsByCategory(student.category);
+    this.documentsByCatogoryType = this.documentService.getDocumentsByCategory(student.category);
     for (let i = 0; i < student.documents.length; i++) {
       if (this.requestType === 'edit') {
         submittedDoc.push([
@@ -106,7 +108,7 @@ export class OnboardStudentComponent implements OnInit {
       mother: student.mother,
       score: student.score
     });
-    this.onboardingForm.setControl('documents', this._builder.array(submittedDoc));
+    this.onboardingForm.setControl('documents', this.builder.array(submittedDoc));
   }
 
   get f() {
@@ -123,7 +125,7 @@ export class OnboardStudentComponent implements OnInit {
     this.onboardingForm.get('dob').setValue(dobString);
     const name: string = this.onboardingForm.get('name').value;
     if (!studentId) {
-      this._studentService.onBoardStudent(this.onboardingForm.value).subscribe(data => {
+      this.studentService.onBoardStudent(this.onboardingForm.value).subscribe(data => {
         this.snackBar.open(name + ' onboarded', '', {
           duration: 2000, 
           verticalPosition: "top",
@@ -131,7 +133,7 @@ export class OnboardStudentComponent implements OnInit {
         });
       });
     } else {
-      this._studentService.update(studentId, this.onboardingForm.value).subscribe(data => {
+      this.studentService.update(studentId, this.onboardingForm.value).subscribe(data => {
         this.snackBar.open(name + `'s details updated`, '', {
           duration: 2000,
           verticalPosition: "top",
@@ -139,7 +141,7 @@ export class OnboardStudentComponent implements OnInit {
         });
       });
     }
-    this._nav.navigate(['/student/list']);
+    this.nav.navigate(['/student/list']);
   }
 
   onSelectingCategory() {
@@ -148,7 +150,7 @@ export class OnboardStudentComponent implements OnInit {
     this.onboardingForm.get("documents").reset();
     (this.onboardingForm.get("documents") as FormArray)['controls'].splice(0);
 
-    this.documentsByCatogoryType = this._documentService.getDocumentsByCategory(categoryType);
+    this.documentsByCatogoryType = this.documentService.getDocumentsByCategory(categoryType);
     const documents = this.onboardingForm.get("documents") as FormArray;
     for (let i = 0; i < this.documentsByCatogoryType.length; i++) {
       documents.push(

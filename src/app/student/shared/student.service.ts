@@ -18,7 +18,7 @@ export class StudentService {
 
   delete(id: number): Observable<Student> {
     return this.httpClient.delete<Student>(this.url + `${id}`)
-      .pipe(catchError(this.handleError<Student>('getStudentById')));
+      .pipe(catchError(this.handleError<Student>('delete')));
   }
 
   getStudents(): Observable<Student[]> {
@@ -30,7 +30,7 @@ export class StudentService {
       return this.students$;
     }
     return this.httpClient.get<Student[]>(this.url + `?category=${category}`)
-      .pipe(catchError(this.handleError<Student[]>('getStudentById')));
+      .pipe(catchError(this.handleError<Student[]>('getStudentByCategory')));
   }
 
   getStudentById(studentId: number): Observable<Student> {
@@ -40,7 +40,7 @@ export class StudentService {
 
   loadData(): Observable<Student[]> {
     return this.httpClient.get<Student[]>(this.url)
-      .pipe(catchError(this.handleError<Student[]>('getStudentById')));
+      .pipe(catchError(this.handleError<Student[]>('loadData')));
   }
 
   onBoardStudent(student: {
@@ -61,7 +61,7 @@ export class StudentService {
   update(studentId: number, student): Observable<Student> {
     student.id = studentId;
     return this.httpClient.put<Student>(this.url + `${studentId}`, student)
-      .pipe(catchError(this.handleError<Student>('getStudentById')));
+      .pipe(catchError(this.handleError<Student>('update')));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

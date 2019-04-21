@@ -1,5 +1,3 @@
-import { Document } from '../../model/document'
-
 export interface Student {
     id?: number;
     name: string;

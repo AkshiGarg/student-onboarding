@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Student } from '../model/student';
-import { StudentService } from '../service/student/student.service';
+import { Component, OnInit } from '@angular/core';
+import { Student } from './shared/student';
+import { StudentService } from './shared/student.service';
 
 @Component({
   selector: 'app-list-student',
@@ -8,31 +8,26 @@ import { StudentService } from '../service/student/student.service';
   styleUrls: ['./list-student.component.css']
 })
 export class ListStudentComponent implements OnInit {
+  
   categoryType: string = 'all';
   student: Student;
   students: Student[];
   filteredStudents: Student[];
+  
   private _searchTerm: string;
+
   constructor(public studentService: StudentService) {
   }
 
-  // ngOnChanges(changes: SimpleChanges) {
-  //   console.log(changes);
-  // }
-
+  delete(id: number) {
+    this.students = this.students.filter(student => student.id !== id);
+    this.filteredStudents = this.students;
+  }
 
   get searchTerm(): string {
     return this._searchTerm;
   }
 
-  set searchTerm(searchString: string) {
-    this._searchTerm = searchString;
-    this.searchByName();
-  }
-  searchByName() {
-    this.filteredStudents = this.students.filter(
-      student => student.name.toLowerCase().indexOf(this._searchTerm.toLowerCase()) !== -1);
-  }
   ngOnInit() {
     this.studentService.getStudents().subscribe(
       students => {
@@ -48,10 +43,16 @@ export class ListStudentComponent implements OnInit {
         this.students = students
         this.filteredStudents = this.students;
       });
+
   }
 
-  delete(id: number) {
-    this.students = this.students.filter(student => student.id !== id);
-    this.filteredStudents = this.students;
+  searchByName() {
+    this.filteredStudents = this.students.filter(
+      student => student.name.toLowerCase().indexOf(this._searchTerm.toLowerCase()) !== -1);
+  }
+
+  set searchTerm(searchString: string) {
+    this._searchTerm = searchString;
+    this.searchByName();
   }
 }

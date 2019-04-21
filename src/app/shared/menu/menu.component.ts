@@ -18,9 +18,9 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.router.events.subscribe((res) => {
-    this.activeLinkIndex =
-      this.navLinks.indexOf(
-        this.navLinks.find(tab => tab.path === this.router.url));
-  });
-}
+      this.activeLinkIndex =
+        this.navLinks.indexOf(
+          this.navLinks.find(tab => tab.path === this.router.url));
+    });
+  }
 }

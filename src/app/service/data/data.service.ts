@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { Student } from 'src/app/model/student';
+import { Student } from 'src/app/student/shared/student';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InMemoryDataService implements InMemoryDbService {
+  
+  constructor() { }
+  
   createDb() {
     let students: Student[] = [
       {
@@ -90,8 +93,4 @@ export class InMemoryDataService implements InMemoryDbService {
     ];
     return { students };
   }
-
-  constructor() { }
-
-
 }

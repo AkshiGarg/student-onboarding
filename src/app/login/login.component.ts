@@ -12,9 +12,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hide = true;
   valid = true;
-  constructor(private fb: FormBuilder) { 
-    
-    }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.loginForm = this.fb.group({
